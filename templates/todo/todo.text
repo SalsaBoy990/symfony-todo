@@ -1,0 +1,17 @@
+
+           {{ form_start(form) }}
+
+           <div class="row">
+                <div class="col-6">
+                {{ form_label(form.name, "Name")}}
+                {{ form_row(form.name, {"label": false})}}
+                </div>
+                 <div class="col-6">
+                {{ form_row(form.priority)}}
+                </div>
+                 <div class="col-6">
+                {{ form_row(form.status)}}
+                </div>
+           </div>
+
+           {{ form_end(form) }}

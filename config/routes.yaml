@@ -5,3 +5,7 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+
+blog:
+    path: /
+    controller: App\Controller\TodoController::index

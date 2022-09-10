@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="row">
+            <div class="col">
+                <ul>
+                {% for todo in todos %}
+                    <li>
+                        <h2>{{ todo.getName() }}</h2>
+                        <p>{{ todo.getStatus() }}</p>
+                        <p>{{ todo.getPriority() }}</p>
+                        <p>{{ todo.getDateCreation() | date("m/d/Y") }}</p>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock%}
