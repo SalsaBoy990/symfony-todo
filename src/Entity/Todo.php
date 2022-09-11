@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TodoRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -27,21 +28,27 @@ class Todo
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    #[Assert\Type(type: ['low', 'medium', 'high'])]
+    //#[Assert\Type(type: ['low', 'medium', 'high'])]
     private ?string $priority = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    #[Assert\Type(type: ['pending', 'in progress', 'completed'])]
+    //#[Assert\Type(type: ['pending', 'in progress', 'completed'])]
     private ?string $status = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\NotBlank]
-    private ?\DateTimeInterface $dateCreation = null;
 
     #[ORM\ManyToOne(inversedBy: 'todos')]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank]
+    private ?\DateTimeInterface $dateDue = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateCreated = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
     public function getId(): ?int
     {
@@ -84,18 +91,6 @@ class Todo
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
-    {
-        return $this->dateCreation;
-    }
-
-    public function setDateCreation(\DateTimeInterface $dateCreation): self
-    {
-        $this->dateCreation = $dateCreation;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -104,6 +99,42 @@ class Todo
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDateDue(): ?\DateTimeInterface
+    {
+        return $this->dateDue;
+    }
+
+    public function setDateDue(\DateTimeInterface $dateDue): self
+    {
+        $this->dateDue = $dateDue;
+
+        return $this;
+    }
+
+    public function getDateCreated(): ?\DateTimeInterface
+    {
+        return $this->dateCreated;
+    }
+
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
+    {
+        $this->dateCreated = new \DateTime('now');
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

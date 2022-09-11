@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+Todo app
+{% endblock%}
+
+
+{% block body %}
+<div class="row">
+	<h1 class="h3">Todo app</h1>
+</div>
+
+<div class="row">
+	{% if todos | length == 0 %}
+		No todos for now
+	{% endif %}
+
+	<div class="col-12">
+		{% for msg in app.flashes('notice') %}
+			<div class="alert alert-success my-2">
+				{{ msg }}
+			</div>
+		{% endfor %}
+		{% for msg in app.flashes('error') %}
+			<div class="alert alert-danger my-2">
+				{{ msg }}
+			</div>
+		{% endfor %}
+
+	</div>
+
+
+	<div class="accordion" id="accordionExample">
+
+		{% for todo in todos %}
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="heading{{ loop.index }}">
+					<button class="accordion-button {% if loop.index > 1 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="{% if loop.first %}true{% else %}false{% endif %}" aria-controls="collapse{{ loop.index }}">
+						<div class="d-flex flex-column flex-sm-row justify-content-between w-full">
+
+							<div class="fs-6 fw-bold">
+								<span class="status fs-7 fw-normal {% if todo.status | lower == 'done' %} done {% endif %}"></span>
+								{{ todo.name }}</div>
+							<span class="ms-3 ms-sm-2 me-1">Due:{{ todo.dateDue() | date("m/d/Y") }}
+							</span>
+						</div>
+					</button>
+				</h2>
+				<div id="collapse{{ loop.index }}" class="accordion-collapse collapse {% if loop.index == 1 %} show {% endif %}" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#accordionExample">
+					<div class="accordion-body">
+						<div class="description mt-2 mb-4">
+							{{ todo.description }}
+						</div>
+						<div class="action-buttons">
+							<ul class="nav mb-2">
+								<li class="me-4">
+									<a href="{{ path('todo.update', { id: todo.id }) }}">Edit</a>
+								</li>
+								<li class="me-4">
+									<a  
+										{% if todo.status | lower != 'done' %}
+											href="{{ path('todo.close', { id: todo.id }) }}"
+										{% else %}
+											class="text-overline"
+										{% endif %}>
+									Close</a>
+								</li>
+
+								<li class="">
+									<a href="{{ path('todo.delete', { id: todo.id }) }}">Delete</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+</div>
+
+{% endblock%}

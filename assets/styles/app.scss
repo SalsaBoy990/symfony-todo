@@ -1,0 +1,63 @@
+body {
+  background-color: #fafafa;
+
+  header {
+    background-color: #db4c3f;
+    color: white;
+
+    a {
+      color: white;
+      &:hover {
+        color: #313131;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .wrapper {
+    background-color: white;
+
+    span.status {
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      background-color: white;
+      height: 15px;
+      width: 15px;
+      vertical-align: middle;
+
+      &.done {
+        background-color: forestgreen;
+        border: 1px solid forestgreen;
+      }
+    }
+
+    .description {
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  .w-full {
+    width: 100%;
+  }
+
+  .accordion {
+    .accordion-item {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+      border-width: 0 0 1px 0;
+
+      .accordion-collapse.show {
+        .accordion-body {
+          background-color: #fafafa;
+        }
+      }
+    }
+  }
+
+  .text-overline {
+    text-decoration: line-through;
+    color: #313131;
+    opacity: 0.55;
+  }
+}
